@@ -1,0 +1,2 @@
+$('.projectItem.<%= @project.id %>').fadeOut();
+$(".flash").html('<%= j render partial: "layouts/flash", locals: { danger: flash[:danger] } %>');

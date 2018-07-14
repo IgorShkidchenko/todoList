@@ -1,0 +1,3 @@
+$('div.taskContent.<%= @task.id %>').replaceWith('<%= j render("task_form") %>');
+$('div.taskCheck.<%= @task.id %>').children().css("visibility", "hidden");
+$('div.tasksLinks.<%= @task.id %>').css("pointer-events", "none");

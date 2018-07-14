@@ -1,0 +1,28 @@
+%div{:class => "taskRow  #{task.id}"}
+  - if task.complete == true
+    .taskCheck
+      %i.glyphicon.glyphicon-check{"aria-hidden" => "true"}
+    .emptyDiv
+    %div{:class => "taskContent #{task.id}", :style => "text-decoration: line-through;"}
+      = task.content
+  - else
+    %div{:class => "taskCheck #{task.id}"}= link_to " ", complete_path(task.project_id, task.id), |
+        remote: true, class: 'glyphicon glyphicon-unchecked'  |
+    .emptyDiv
+    %div{:class => "taskContent  #{task.id}"}
+      = task.content
+  %div{:class => "deadLine  #{task.id}"}
+    - if task.deadline == nil
+    - else
+      %span #{task.deadline.strftime('%a, %m/%d/%y')}
+  %div{:class => "tasksLinks #{task.id}"}
+    .sortDiv
+      = link_to ' ', sortUp_path(task.project_id, task.id), remote: true, method: :patch, class: 'fa fa-caret-up taskHideLink'
+      = link_to ' ', sortDown_path(task.project_id, task.id), remote: true, method: :patch, class: 'fa fa-caret-down taskHideLink'
+    %span.TasksLinksSeparate.taskHideLink|
+    - if task.complete == true
+      = link_to ' ', del_path(task.project_id, task.id), remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: 'glyphicon glyphicon-trash taskHideLink'
+    - else
+      = link_to ' ', edit_project_task_path(task.project_id, task.id), remote: true, class: 'glyphicon glyphicon-pencil taskHideLink'
+      %span.TasksLinksSeparate.taskHideLink|
+      = link_to ' ', del_path(task.project_id, task.id), remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: 'glyphicon glyphicon-trash taskHideLink'

@@ -1,0 +1,5 @@
+.projectForm
+  = form_for (@project), remote: true do |f|
+    = f.label :name , class:"white"
+    = f.text_field :name, class:"projectFormField"
+    = f.submit "Accept", class: "btn btn-success"

@@ -1,0 +1,14 @@
+#title
+  %h1 SIMPLE TODO LISTS
+  %h4 FROM RUBY GARAGE
+  = link_to "Log out", destroy_user_session_path, :method => :delete, class:"logOut btn btn-danger"
+.myProjects
+  - current_user&.projects&.each  do |project|
+    = render partial: 'projects/project', locals: {project: project}
+.flash
+#addTodoList
+  = link_to new_project_path, remote: true do
+    %button.btn.btn-primary.btn-lg
+      %i.glyphicon.glyphicon-plus.plusblack{"aria-hidden" => "true"}>
+        Add TODO List
+%p#copyRubyGarage © Ruby Garage

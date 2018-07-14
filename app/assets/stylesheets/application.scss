@@ -1,0 +1,303 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require devise_bootstrap_views
+ *= require_tree .
+ *= require_self
+ */
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+.panel {
+	margin: 50px auto;
+	width: 500px;
+}
+
+.checkbox {
+	margin-left: -20px;
+}
+
+.deviseLinks {
+	width: 500px;
+	margin: 5px auto;
+	background-color: white;
+	padding: 10px;
+	font-size: 1.1em;
+	border-radius: 2%;
+	font-weight: bold;
+}
+
+.gray {
+	color: gray;
+}
+
+body, html {
+	background: image_url('view.jpg') no-repeat center center fixed;
+	background-size: cover;
+	overflow-x: hidden;	
+}
+
+.glyphicon:hover {
+	text-decoration:none;
+}
+
+#addTodoList, #copyRubyGarage {
+	display: flex;
+	justify-content: center;
+	margin-top: 25px;
+	color: #fff;
+}
+
+#title {
+	text-align: center;
+	margin-bottom: 5%;
+}
+
+h1 {
+	font-weight: bold;
+}
+
+.plusblack {
+	color: #243654;
+	font-size: 1.15em;
+}
+
+.plusgreen {
+	color: #4ab576;
+	font-size: 1.6em;
+	margin-top: 5px;
+}
+
+.myProjects {
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+.flash {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+.logOut {
+	float: right;
+	margin-top: -75px;
+}
+
+/* FirstRow */
+
+.firstRow {
+	display: flex;
+	flex-direction: row;
+	background-color: #4373b1;
+	box-shadow: 0 0 3px rgba(0,0,0,0.5);
+	border-radius: 1%;
+}
+
+.ProjectCalendar {
+	color: #000;
+	font-size: 1.8em;
+	padding: 15px 0px 15px 10px;
+	opacity: 0.5;
+}
+
+.ProjectName {
+	color: #fff;
+	font-size: 1.35em;
+	padding: 15px;
+	width: 85%;
+}
+
+.ProjectsLinks {
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.ProjectEdit, .ProjectDelete {
+	color: #fff;
+	font-size: 1.2em;
+	padding: 20px 5px ;
+	opacity: 0.5;
+}
+
+.ProjectEdit:hover, .ProjectDelete:hover {
+	color: #fff;
+	opacity: 1;
+}
+
+.ProjectsLinksSeparate {
+	padding-top: 20px;
+	color: #fff;
+	opacity: 0.5;
+}
+
+.projectForm {
+	padding: 10px;
+	text-align: center;
+	margin-left: 5px;
+}
+
+.projectFormField{
+	width: 400px;
+}
+
+.white {
+	color: #DFFFE7;
+}
+
+/* SecondRow */
+
+.secondRow {
+	background-color: #d0d0d0;
+	padding: 10px;
+	border-radius: 1%;
+	border:1px solid #bcbaba; 
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.taskform {
+	width: 660px;
+	margin-left: 3px;
+	height: 36px; 
+}
+
+/* TasksList */
+
+.taskTable {
+	display: flex;
+	flex-direction: column;
+	background-color: #fff;
+	width: 798px;
+	border-radius: 0px 0px 15px 15px;
+	margin-bottom: 40px;
+	border-collapse: collapse;
+	box-shadow: 5px 7px 5px -6px rgba(0,0,0,0.63);
+	overflow: hidden;
+}
+
+.taskRow {
+	z-index: 999;
+	display: flex;
+	flex-direction: row;
+	height: 55px;
+}
+
+.taskCheck {
+	width: 30px;
+	padding:10px;
+	border-top: 0.1px solid #e8e8e8;
+}
+
+.glyphicon-unchecked {
+	color: black;
+	font-size: 1.3em;
+	opacity: 0.5;
+}
+
+.glyphicon-unchecked:hover {
+	color: black;
+	opacity: 0.7;
+}
+
+.glyphicon-check{
+	color: black;
+	font-size: 1.2em;
+	opacity: 0.8;
+}
+
+.emptyDiv {
+	width: 8px;
+	border-left: 0.1px solid #e8e8e8;
+	border-right: 0.1px solid #e8e8e8;
+	border-top: 0.1px solid #e8e8e8;
+}
+
+.taskContent {
+	width: 600px;
+	padding:10px;
+	font-size: 1.1em;
+	border-top: 0.1px solid #e8e8e8;
+}
+
+.taskFormTwo {
+	width: 600px;
+	padding:10px;
+	border-top: 0.1px solid #e8e8e8;
+}
+
+.tasksLinks {
+	width: 100px;
+	padding:10px;
+	border-top: 0.1px solid #e8e8e8;
+	border-left: 0.1px solid #e8e8e8;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.TasksLinksSeparate {
+	padding: 4px;
+}
+
+.taskHideLink {
+	opacity: 0;
+	transition:0.5s;
+}
+
+.deadLine {
+	padding: 5px;
+	border-top: 0.1px solid #e8e8e8;
+	border-left: 0.1px solid #e8e8e8;
+	width: 70px;
+}
+
+.taskRow:hover {
+	background-color: #f5f0b6;
+
+	.taskHideLink {
+		opacity: 0.5;
+		transition:0.5s;
+		color:black;
+	}
+	.taskHideLink:hover {
+		opacity: 1;
+	}
+
+}
+
+.firstRow:hover {
+
+	.ProjectsLinks {
+		opacity: 0.7;
+		transition: 0.5s;
+	}
+}
+
+.sortDiv {
+	display: flex;
+	flex-direction: column;
+}
+
+.alert-notice {
+	display: none;
+}
+
+.alert-warning {
+	display: flex;
+	justify-content: center;
+	width: 500px;
+	margin: 0px auto;
+}

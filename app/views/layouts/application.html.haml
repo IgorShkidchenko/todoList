@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title TodoRubyGarage
+    = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %link{:href => "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css", :rel => "stylesheet"}/
+    %link{:href => "/resources/demos/style.css", :rel => "stylesheet"}/
+    %link{href: "//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.css", rel: "stylesheet"}/
+    %link{href: "//maxcdn.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.css", rel: "stylesheet"}/
+    %link{crossorigin: "anonymous", href: "https://use.fontawesome.com/releases/v5.1.0/css/all.css", integrity: "sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt", rel: "stylesheet"}/
+    %script{:src => "https://code.jquery.com/jquery-1.12.4.js"}
+    %script{:src => "https://code.jquery.com/ui/1.12.1/jquery-ui.js"}
+  %body
+    .container
+      = yield
