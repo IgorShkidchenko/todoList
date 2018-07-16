@@ -35,8 +35,13 @@ class TasksController < ApplicationController # :nodoc:
         flash.now[:success] = 'Task updated!'
         format.js {}
       else
-        flash.now[:danger] = "Can't be blank!"
-        format.js { render :valid }
+        if task_params[:content] == ''
+          flash.now[:danger] = "Can't be blank!"
+          format.js { render :valid }
+        else
+          flash.now[:danger] = "Deadline can't be in the past"
+          format.js { render :valid }
+        end
       end
     end
   end
