@@ -54,7 +54,7 @@ class TasksController < ApplicationController # :nodoc:
 
   def complete
     @task.update_attribute(:complete, true)
-    flash.now[:success] = 'Task completed!'
+    flash.now[:info] = 'Task completed!'
     respond_with(@task)
   end
 

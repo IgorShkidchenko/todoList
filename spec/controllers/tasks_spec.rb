@@ -49,7 +49,7 @@ describe TasksController, :type => :controller  do
     get :complete, xhr: true, params: { project_id: projectId, id: projectTask.id, task: { complete: true } }
     expect(response).to have_http_status(:success)
     expect(response).to render_template(:complete)
-    expect(flash[:success]).to eq "Task completed!"
+    expect(flash[:info]).to eq "Task completed!"
     expect(lastTask.complete).to eq true
   end
 
