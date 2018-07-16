@@ -1,6 +1,3 @@
 $('.taskTable.<%= @project.id %>').append('<%= j render @task  %>');
-$(".flash").html('<%= j render partial: "layouts/flash", locals: { success: flash[:success] } %>');
+$(".flash.<%= @task.project_id %>").html('<%= j render partial: "layouts/flash", locals: { success: flash[:success] } %>');
 $('.taskform').val("").attr("placeholder", "Start typing here to create a task...");
-$(function() {
-  $( ".datepicker" ).datepicker();
-});

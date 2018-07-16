@@ -1,1 +1,1 @@
-$(".flash").html('<%= j render partial: "layouts/flash", locals: { danger: flash[:danger] } %>');
+$(".flash.<%= @project.id %>").html('<%= j render partial: "layouts/flash", locals: { danger: flash[:danger] } %>');

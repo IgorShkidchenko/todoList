@@ -5,7 +5,6 @@
 .myProjects
   - current_user&.projects&.each  do |project|
     = render partial: 'projects/project', locals: {project: project}
-.flash
 #addTodoList
   = link_to new_project_path, remote: true do
     %button.btn.btn-primary.btn-lg
