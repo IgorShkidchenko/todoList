@@ -1,2 +1,2 @@
-$('.firstRow').children('.projectForm').replaceWith('<div class="ProjectName" id="<%= @project.id %>">   <%= @project.name %></div>');
+$('div.projectItem.<%= @project.id %>').children('div.firstRow').children('.projectForm').replaceWith('<div class="ProjectName" id="<%= @project.id %>"><%= @project.name %></div>');
 $(".flash.<%= @project.id %>").html('<%= j render partial: "layouts/flash", locals: { success: flash[:success] } %>');
