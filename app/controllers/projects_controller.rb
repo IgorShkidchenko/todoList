@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController # :nodoc:
-  
+  load_and_authorize_resource
+  before_action :authenticate_user!
   before_action :set_project, only: %i[edit update destroy]
 
   respond_to :html, :js
@@ -18,8 +19,8 @@ class ProjectsController < ApplicationController # :nodoc:
         flash.now[:success] = 'Project created!'
         format.js {}
       else
-        flash.now[:danger] = "Can't be blank!"
-        format.js { render :valid }
+        flash.now[:danger] = @project.errors.full_messages.to_sentence
+        format.js { render :valid, locals: { flash_div: ".flash.new_blank" } }
       end
     end
   end
@@ -27,15 +28,15 @@ class ProjectsController < ApplicationController # :nodoc:
   def edit
     respond_with(@project)
   end
-
+  
   def update
     respond_to do |format|
       if @project.update(project_params)
         flash.now[:success] = 'Project updated!'
         format.js {}
       else
-        flash.now[:danger] = "Can't be blank!"
-        format.js { render :valid }
+        flash.now[:danger] = @project.errors.full_messages.to_sentence
+        format.js { render :valid, locals: { flash_div: ".flash.#{ @project.id }" } }
       end
     end
   end
@@ -54,7 +55,7 @@ class ProjectsController < ApplicationController # :nodoc:
   def set_project
     @project = current_user.projects.find(params[:id])
   end
-
+  
   def project_params
     params.require(:project).permit(:name)
   end

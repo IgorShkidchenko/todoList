@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController # :nodoc:
+  before_action :authenticate_user!
   before_action :set_project
   before_action :set_task, except: %i[new create]
-
-  respond_to :html
-  respond_to :js
+  
+  respond_to :html, :js
 
   def new
     @task = Task.new
@@ -19,7 +19,7 @@ class TasksController < ApplicationController # :nodoc:
         flash.now[:success] = 'Task created!'
         format.js {}
       else
-        flash.now[:danger] = "Can't be blank!"
+        flash.now[:danger] = @task.errors.full_messages.to_sentence
         format.js { render :valid }
       end
     end
@@ -35,13 +35,8 @@ class TasksController < ApplicationController # :nodoc:
         flash.now[:success] = 'Task updated!'
         format.js {}
       else
-        if task_params[:content] == ''
-          flash.now[:danger] = "Can't be blank!"
-          format.js { render :valid }
-        else
-          flash.now[:danger] = "Deadline can't be in the past"
-          format.js { render :valid }
-        end
+        flash.now[:danger] = @task.errors.full_messages.to_sentence
+        format.js { render :valid }
       end
     end
   end

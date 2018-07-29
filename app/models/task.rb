@@ -3,12 +3,13 @@
 class Task < ApplicationRecord # :nodoc:
   belongs_to :project
   acts_as_list scope: :project
-  validates :content, presence: true
+  validates :content, presence: { message: "can't be blank!" }
+  validates :content, length: { maximum: 65, message: 'is too long!' }
   validate :past_deadline
 
   def past_deadline
     if !deadline.blank? and deadline < Date.today
-      errors.add(:update, '')
+      errors.add(:Deadline, "can't be in the past!")
     end
   end
 end

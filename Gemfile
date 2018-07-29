@@ -23,6 +23,7 @@ gem 'acts_as_list'
 gem "haml-rails", "~> 1.0"
 gem 'devise-bootstrap-views'
 gem 'ffaker'
+gem 'cancancan', '~> 2.0'
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri

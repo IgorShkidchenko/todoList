@@ -12,7 +12,8 @@ RSpec.describe Project, type: :model do
   context "In module" do
     it { should belong_to(:user) }
     it { should have_many(:tasks).order(position: :asc).dependent(:destroy) }
-    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:name).with_message("can't be blank!") }
+    it { should validate_length_of(:name).is_at_most(60).with_message("is too long!") }
   end
 
   context "Valid creation" do

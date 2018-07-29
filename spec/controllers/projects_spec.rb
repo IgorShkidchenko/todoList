@@ -5,10 +5,43 @@ describe ProjectsController, :type => :controller  do
   let(:projectName) { user.projects.last.name }
   let(:projectUserId) { user.projects.last.user_id }
   let(:projectId) { user.projects.last.id }
-  
+  let(:second_user) { FactoryGirl.create(:userWithProject) }
+
+  context "cancancan second_user test" do
+    before :each do
+      sign_in(second_user)
+    end
+
+    it "Not be able to do actions with user's project as second_user" do
+      %i[edit update destroy].each do |action|
+        is_expected.not_to be_able_to(:action, user.projects.last)
+      end
+    end
+
+    it "Be able to do actions with second_user's project as second_user" do
+      %i[edit update destroy].each do |action|
+        is_expected.to be_able_to(action, second_user.projects.last)
+      end
+    end
+  end
+
   before :each do
-    sign_in(user) 
-  end 
+    sign_in(user)
+  end
+
+  context "cancancan user test" do
+    it "Not be able to do actions with second_user's project as user" do
+      %i[edit update destroy].each do |action|
+        is_expected.not_to be_able_to(action, second_user.projects.last)
+      end
+    end
+
+    it "Be able to do actions with user's project as user" do
+      %i[edit update destroy].each do |action|
+        is_expected.to be_able_to(action, user.projects.last)
+      end
+    end
+  end
 
   it "Valid factory test" do
     expect(user.id).to eq (projectUserId)
@@ -57,7 +90,7 @@ describe ProjectsController, :type => :controller  do
       post :create, xhr: true, params: { project: { name: '' } }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:valid)
-      expect(flash[:danger]).to eq "Can't be blank!"
+      expect(flash[:danger]).to eq "Name can't be blank!"
     }.to change(Project, :count).by(0)
   end
 
@@ -65,7 +98,7 @@ describe ProjectsController, :type => :controller  do
     patch :update, xhr: true, params: { user_id: projectUserId, id: projectId, project: { name: '' } }
     expect(response).to have_http_status(:success)
     expect(response).to render_template(:valid)
-    expect(flash[:danger]).to eq "Can't be blank!"
+    expect(flash[:danger]).to eq "Name can't be blank!"
     expect(projectName).to eq (projectName)
   end
 

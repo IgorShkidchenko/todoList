@@ -3,12 +3,48 @@ require 'rails_helper'
 describe TasksController, :type => :controller  do
   let(:user) { FactoryGirl.create(:userWithProject) }
   let(:projectId) { user.projects.last.id }
-  let(:projectTask) { user.projects.last.tasks.create(content: 'Task')}
+  let(:projectTask) { user.projects.last.tasks.create(content: 'Task') }
   let(:lastTask) { user.projects.last.tasks.last }
-  
+  let(:second_user) { FactoryGirl.create(:userWithProject) }
+  let(:second_user_task) { second_user.projects.last.tasks.create(content: 'second_task') }
+
+   context "cancancan second_user test" do
+    before :each do
+      sign_in(second_user)
+    end
+
+    it "Not be able to do actions with user's task as second_user" do
+      %i[edit update destroy complete sort_down sort_up].each do |action|
+        is_expected.not_to be_able_to(action, projectTask)
+        is_expected.not_to be_able_to(action, lastTask)
+      end
+    end
+
+    it "Be able to do actions with second_user task as second_user" do
+      %i[edit update destroy complete sort_down sort_up].each do |action|
+        is_expected.to be_able_to(action, second_user_task)
+      end
+    end
+  end
+
   before :each do
     sign_in(user)
-  end 
+  end
+
+  context "cancancan user test" do
+    it "Not be able to do actions with second_user's task as user" do
+      %i[edit update destroy complete sort_down sort_up].each do |action|
+        is_expected.not_to be_able_to(action, second_user_task)
+      end
+    end
+
+    it "Be able to do actions with user task as user" do
+      %i[edit update destroy complete sort_down sort_up].each do |action|
+        is_expected.to be_able_to(action, projectTask)
+        is_expected.to be_able_to(action, lastTask)
+      end
+    end
+  end
 
   it "Valid factory test" do
     expect(projectTask.project_id).to eq (projectId)
@@ -36,12 +72,20 @@ describe TasksController, :type => :controller  do
     expect(response).to render_template(:edit)
   end
 
-  it "Update task" do
+  it "Update task name" do
     patch :update, xhr: true, params: { project_id: projectId, id: projectTask.id, task: { content: 'newTask' } }
     expect(response).to have_http_status(:success)
     expect(response).to render_template(:update)
     expect(flash[:success]).to eq "Task updated!"
     expect(lastTask.content).to eq "newTask"
+  end
+
+  it "Update task deadline" do
+    patch :update, xhr: true, params: { project_id: projectId, id: projectTask.id, task: { deadline: Date.tomorrow } }
+    expect(response).to have_http_status(:success)
+    expect(response).to render_template(:update)
+    expect(flash[:success]).to eq "Task updated!"
+    expect(lastTask.deadline).to eq (Date.tomorrow)
   end
 
   it "Complete task" do
@@ -78,7 +122,7 @@ describe TasksController, :type => :controller  do
       post :create,xhr: true, params: { project_id: projectId, task: { content: '' } }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:valid)
-      expect(flash[:danger]).to eq "Can't be blank!"
+      expect(flash[:danger]).to eq "Content can't be blank!"
     }.to change(Task, :count).by(0)
   end
 
@@ -86,8 +130,16 @@ describe TasksController, :type => :controller  do
     patch :update, xhr: true, params: { project_id: projectId, id: projectTask.id, task: { content: '' } }
     expect(response).to have_http_status(:success)
     expect(response).to render_template(:valid)
-    expect(flash[:danger]).to eq "Can't be blank!"
+    expect(flash[:danger]).to eq "Content can't be blank!"
     expect(lastTask.content).to eq (projectTask.content)
+  end
+
+  it "Update with past deadline date" do
+    patch :update, xhr: true, params: { project_id: projectId, id: projectTask.id, task: { deadline: "2010-07-31" } }
+    expect(response).to have_http_status(:success)
+    expect(response).to render_template(:valid)
+    expect(flash[:danger]).to eq "Deadline can't be in the past!"
+    expect(lastTask.deadline).to eq (projectTask.deadline)
   end
 
   context "Test routes" do

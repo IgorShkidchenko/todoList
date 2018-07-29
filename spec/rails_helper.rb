@@ -9,6 +9,7 @@ require 'factory_girl_rails'
 require 'support/controller_helpers'
 require 'capybara/rspec'
 require 'capybara/rails'
+require "cancan/matchers"
 require 'ffaker'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

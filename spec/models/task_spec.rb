@@ -14,7 +14,8 @@ RSpec.describe Task, type: :model do
 
   context "In module" do
     it { should belong_to(:project) }
-    it { should validate_presence_of(:content) }
+    it { should validate_presence_of(:content).with_message("can't be blank!") }
+    it { should validate_length_of(:content).is_at_most(65).with_message("is too long!") }
   end
 
   context "Valid creation" do
