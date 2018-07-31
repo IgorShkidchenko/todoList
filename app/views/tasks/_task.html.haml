@@ -15,7 +15,7 @@
     %div{:class => "deadLine  #{task.id}"}
       - if task.deadline == nil
       - else
-        - if task.deadline == Date.today
+        - if task.deadline <= Date.today
           %span{:class => "red"} #{task.deadline.strftime('%a, %m/%d/%y')}
         - else
           %span #{task.deadline.strftime('%a, %m/%d/%y')}
