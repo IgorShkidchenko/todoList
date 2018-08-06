@@ -8,7 +8,7 @@ class Task < ApplicationRecord # :nodoc:
   validate :past_deadline
 
   def past_deadline
-    if !deadline.blank? and deadline < Date.today
+    if !deadline.blank? && deadline < Date.today
       errors.add(:Deadline, "can't be in the past!")
     end
   end

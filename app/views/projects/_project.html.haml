@@ -7,7 +7,7 @@
       .ProjectsLinks
         = link_to " ", edit_project_path(project),remote: true, class: "glyphicon glyphicon-pencil ProjectEdit"
         %span.ProjectsLinksSeparate|
-        = link_to " ", project,remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: "glyphicon glyphicon-trash ProjectDelete"  
+        = link_to " ", project,remote: true, method: :delete, data: { confirm: "Are you sure?" }, class: "glyphicon glyphicon-trash ProjectDelete"
     .secondRow
       %i.glyphicon.glyphicon-plus.plusgreen{"aria-hidden" => "true"}
       = form_for [project,Task.new], :remote => true do |f|

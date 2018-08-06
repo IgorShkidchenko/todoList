@@ -4,7 +4,7 @@ class TasksController < ApplicationController # :nodoc:
   before_action :authenticate_user!
   before_action :set_project
   before_action :set_task, except: %i[new create]
-  
+
   respond_to :html, :js
 
   def new
@@ -53,7 +53,7 @@ class TasksController < ApplicationController # :nodoc:
     respond_with(@task)
   end
 
-  def sort_up 
+  def sort_up
     @task.move_higher
   end
 

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   let(:user) { FactoryGirl.create(:userWithProject) }
-  let(:projectTask) { user.projects.last.tasks.create(content: 'Task')}
+  let(:projectTask) { user.projects.last.tasks.create(content: 'Task') }
 
-  context "DB" do
+  context 'DB' do
     it { should have_db_column(:content).of_type(:string) }
     it { should have_db_column(:project_id).of_type(:integer) }
     it { should have_db_column(:complete).of_type(:boolean) }
@@ -12,13 +14,13 @@ RSpec.describe Task, type: :model do
     it { should have_db_column(:deadline).of_type(:date) }
   end
 
-  context "In module" do
+  context 'In module' do
     it { should belong_to(:project) }
     it { should validate_presence_of(:content).with_message("can't be blank!") }
-    it { should validate_length_of(:content).is_at_most(65).with_message("is too long!") }
+    it { should validate_length_of(:content).is_at_most(65).with_message('is too long!') }
   end
 
-  context "Valid creation" do
+  context 'Valid creation' do
     it { expect(projectTask).to have_attributes(content: 'Task') }
     it { expect(projectTask).to have_attributes(project_id: user.projects.last.id) }
     it { expect(projectTask).to have_attributes(complete: false) }

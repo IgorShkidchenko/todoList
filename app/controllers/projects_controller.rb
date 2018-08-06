@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController # :nodoc:
     @project = Project.new
     respond_with(@project)
   end
-  
+
   def create
     @project = current_user.projects.build(project_params)
     respond_to do |format|
@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController # :nodoc:
         format.js {}
       else
         flash.now[:danger] = @project.errors.full_messages.to_sentence
-        format.js { render :valid, locals: { flash_div: ".flash.new_blank" } }
+        format.js { render :valid, locals: { flash_div: '.flash.new_blank' } }
       end
     end
   end
@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController # :nodoc:
   def edit
     respond_with(@project)
   end
-  
+
   def update
     respond_to do |format|
       if @project.update(project_params)
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController # :nodoc:
         format.js {}
       else
         flash.now[:danger] = @project.errors.full_messages.to_sentence
-        format.js { render :valid, locals: { flash_div: ".flash.#{ @project.id }" } }
+        format.js { render :valid, locals: { flash_div: ".flash.#{@project.id}" } }
       end
     end
   end
@@ -55,7 +55,7 @@ class ProjectsController < ApplicationController # :nodoc:
   def set_project
     @project = current_user.projects.find(params[:id])
   end
-  
+
   def project_params
     params.require(:project).permit(:name)
   end
