@@ -14,15 +14,7 @@ class TasksController < ApplicationController # :nodoc:
 
   def create
     @task = @project.tasks.build(task_params)
-    respond_to do |format|
-      if @task.save
-        flash.now[:success] = 'Task created!'
-        format.js {}
-      else
-        flash.now[:danger] = @task.errors.full_messages.to_sentence
-        format.js { render :valid }
-      end
-    end
+    create_update_actions(@task, 'created')
   end
 
   def edit
@@ -30,21 +22,11 @@ class TasksController < ApplicationController # :nodoc:
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        flash.now[:success] = 'Task updated!'
-        format.js {}
-      else
-        flash.now[:danger] = @task.errors.full_messages.to_sentence
-        format.js { render :valid }
-      end
-    end
+    create_update_actions(@task, 'updated')
   end
 
   def destroy
-    @task.destroy
-    flash.now[:danger] = 'Task deleted!'
-    respond_with(@task)
+    destroy_action(@task, 'Task')
   end
 
   def complete

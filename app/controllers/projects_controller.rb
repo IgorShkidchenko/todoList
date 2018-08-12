@@ -14,15 +14,7 @@ class ProjectsController < ApplicationController # :nodoc:
 
   def create
     @project = current_user.projects.build(project_params)
-    respond_to do |format|
-      if @project.save
-        flash.now[:success] = 'Project created!'
-        format.js {}
-      else
-        flash.now[:danger] = @project.errors.full_messages.to_sentence
-        format.js { render :valid, locals: { flash_div: '.flash.new_blank' } }
-      end
-    end
+    create_update_actions(@project, 'created', 'new_blank')
   end
 
   def edit
@@ -30,20 +22,11 @@ class ProjectsController < ApplicationController # :nodoc:
   end
 
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        flash.now[:success] = 'Project updated!'
-        format.js {}
-      else
-        flash.now[:danger] = @project.errors.full_messages.to_sentence
-        format.js { render :valid, locals: { flash_div: ".flash.#{@project.id}" } }
-      end
-    end
+    create_update_actions(@project, 'updated', @project.id)
   end
 
   def destroy
-    @project.destroy
-    flash.now[:danger] = 'Project deleted!'
+    destroy_action(@project, 'Project')
   end
 
   def valid
