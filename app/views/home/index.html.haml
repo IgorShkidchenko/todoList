@@ -1,6 +1,6 @@
 #title
   %h1 SIMPLE TODO LISTS
-  %h4 FROM RUBY GARAGE
+  %h4 FROM RUBY 
   = link_to "Log out", destroy_user_session_path, :method => :delete, class:"logOut btn btn-danger"
 .myProjects
   - current_user&.projects&.each  do |project|
@@ -11,4 +11,4 @@
       %i.glyphicon.glyphicon-plus.plusblack{"aria-hidden" => "true"}>
         Add TODO List
 %div{class: "flash new_blank"}
-%p#copyRubyGarage © Ruby Garage
+%p#copyRubyGarage © Ruby 
